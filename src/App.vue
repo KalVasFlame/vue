@@ -1,18 +1,29 @@
 <template>
-  <div id="app">
+<div id="app">
   <LoginForm/>
-  </div>
+</div>
+  <!-- <AlertMessage ref="alertMessage"></AlertMessage> -->
 </template>
 
 <script>
-import LoginForm from "./components/UI/LoginForm.vue"
+import {defineComponent} from "vue";
+import LoginForm from "./components/LoginForm.vue"
+//  import AlertMessage from "./components/AlertMessage.vue"
 
-export default {
-  name: "App",
+export default defineComponent({
+
   components: {
-    LoginForm
+    LoginForm,
+    // AlertMessage
   },
-}
+   setup() {
+    //  const AlertMessage = ref({})
+    
+    //  provide('AlertMessage', AlertMessage)
+
+    //  return { AlertMessage }
+   }
+})
 </script>
 
 <style>
