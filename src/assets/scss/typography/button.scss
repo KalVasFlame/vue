@@ -2,12 +2,10 @@
     cursor: pointer;
     display: block;
     text-align: center;
-    width:190px;
-    margin-top: 35px;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 12px;
-    border-radius: 12px;
+    font-size: 1rem;
+    line-height: 0.75rem;
+    border-radius: 0.75rem;
     padding: 22px;
   }
 
@@ -16,7 +14,7 @@
     color: var(--color-white);
 }
 
-.outlined {
+.outlined-primary {
     background: var(--color-white);
     color: var(--color-blue);
     border: 1px solid var(--color-blue);
@@ -25,4 +23,10 @@
 .secondary {
     background: var(--color-green);
     color: var(--color-white);
+}
+
+.outlined-secondary {
+    background: var(--color-white);
+    color: var(--color-green);
+    border: 1px solid var(--color-green);
 }

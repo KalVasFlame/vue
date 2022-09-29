@@ -1,5 +1,4 @@
-<template lang="">
-
+<template>
   <div class="login-form-wrapper">
     <h1 class="login-form-tittle">Login or Registration</h1>
   <div class="login-type-btns">
@@ -21,7 +20,7 @@
   </div>
   <button class="btn primary" @click="submitForm">{{codeSent ? "Log In" : "Get SMS"}}</button>
   </div>
-  <RadioBtn :title="'Male'" :id="'sex-m'" :value="'male'" :name="'sex'"/>
+  <RadioBtn :title="'Male'" :id="'sex-m'" :value="'male'"         :name="'sex'"/>
   <RadioBtn :title="'Female'" :id="'sex-f'" :value="'female'" :name="'sex'"/>
 
 </template>
@@ -36,7 +35,7 @@ import qs from "qs";
 import RadioBtn from './RadioBtn.vue'
 
 export default defineComponent({
-  components: {RadioBtn},
+  components: { RadioBtn },
   setup() {
     //  const AlertMessage = inject('AlertMessage');
     // console.log("AlertMessage -------");
@@ -59,7 +58,7 @@ export default defineComponent({
       return {
             phone: { required: helpers.withMessage('Please enter your phone number', required), minLength: minLength(10) },
             email: {
-               required: helpers.withMessage('Please enter valid email', required),
+               required: helpers.withMessage('Please enter email', required),
                email: helpers.withMessage('Please enter valid email', email) },
             agree: { required: helpers.withMessage('Agreement is required', sameAs(true)) },
             code: { required: helpers.withMessage('Enter code from SMS you received', required), minLength: minLength(4), maxLength: maxLength(4) },
@@ -256,7 +255,7 @@ export default defineComponent({
   margin-bottom: 45px;
 }
 
-.loginTypeBtns span {
+.login-type-btns span {
   font-weight: 400;
   font-size: 12px;
   line-height: 12px;

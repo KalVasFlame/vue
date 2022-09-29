@@ -1,19 +1,22 @@
 <template>
 <div id="app">
-  <LoginForm/>
+  <!-- <LoginForm/> -->
+  <RegistrationForm/>
 </div>
   <!-- <AlertMessage ref="alertMessage"></AlertMessage> -->
 </template>
 
 <script>
 import {defineComponent} from "vue";
-import LoginForm from "./components/LoginForm.vue"
+// import LoginForm from "./components/LoginForm.vue"
+import RegistrationForm from "./components/RegistrationForm.vue"
 //  import AlertMessage from "./components/AlertMessage.vue"
 
 export default defineComponent({
 
   components: {
-    LoginForm,
+    RegistrationForm
+    // LoginForm,
     // AlertMessage
   },
    setup() {

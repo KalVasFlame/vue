@@ -1,20 +1,15 @@
 <template lang="">
-    <div>
-        {{props.title}}
-    </div>
+  <div>
+    
+  </div>
 </template>
+
 <script>
-import {defineComponent} from 'vue'
-export default defineComponent({
-props: {
-  title: String,
-},
-setup(props) {
-  return { props}  
+export default {
+  
 }
-    
-})
 </script>
+
 <style lang="">
-    
+  
 </style>

@@ -1,0 +1,70 @@
+// text colors
+.black {
+    color: var(--color-black);
+}
+.green {
+    color: var(--color-green);
+}
+.blue {
+    color: var(--color-blue);
+}
+.gray {
+    color: var(--color-grayText);
+}
+.red {
+    color: var(--color-red);
+}
+.orange {
+    color: var(--color-orange);
+}
+
+//text types
+.xxs {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+}
+.xs {
+    font-size: 0.875rem;
+    line-height: 0.75rem;
+}
+.s {
+    font-size: 1.125rem;
+    line-height: 0.75rem;
+}
+.m {
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+}
+.xm {
+    font-size: 1.313rem;
+    line-height: 0.75rem;
+}
+.xxm {
+    font-size: 1.25rem;
+    line-height: 1.625rem;
+}
+.l {
+    font-size: 1.313rem;
+    line-height: 1.875rem;
+}
+.xl {
+    font-size: 23.4313px;
+    line-height: 1.625rem;
+}
+
+// text weight 
+.thin {
+    font-weight: 300;
+}
+
+.regular {
+    font-weight: 400;
+}
+
+.bold {
+    font-weight: 500;
+}
+
+.bolder {
+    font-weight: 700;
+}
