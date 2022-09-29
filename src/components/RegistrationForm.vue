@@ -56,7 +56,7 @@
         v-model="form.year"
          > -->
 
-      <button :disabled="isValid.value" class="btn outlined-secondary" type="submit">Submit</button>
+      <button :disabled="isValid.value" class="btn delete" type="submit">Submit</button>
     </form>
 </template>
 <script>
