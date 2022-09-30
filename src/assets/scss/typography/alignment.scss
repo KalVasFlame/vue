@@ -1,7 +1,6 @@
 .container {
-    width: 100%;
-    padding-left: 0.938rem;
-    padding-right: 0.938rem;
+    width: calc(100% - 1.875rem) ;
+    margin: 0 auto;
 }
 
 .d-flex {
@@ -10,7 +9,6 @@
 
 .d-flex-center {
     display: flex;
-    justify-content: center;
     align-items: center;    
 }
 
@@ -22,3 +20,13 @@
     flex-wrap: wrap;
 }
 
+.jc-c {
+    justify-content: center;
+}
+.jc-sb {
+    justify-content: space-between;
+}
+
+.ai-c {
+    align-items: center;
+}

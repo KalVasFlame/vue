@@ -6,7 +6,7 @@
    <span>or</span>
    <a class="login-type-btn" @click="mode_email = true, codeSent = false" :class="{active: mode_email }">Email</a>
   </div>
-  <vue-tel-input type="tel" v-if="!mode_email"  @input="onInput"  class="input login" :value="state.phone"></vue-tel-input>
+  <vue-tel-input placeholder="12 123 45 67" type="tel" v-if="!mode_email"  @input="onInput"  class="input login" :value="state.phone"></vue-tel-input>
   <input type="email" v-if="mode_email" v-model="state.email" class="input login" placeholder="Enter Email"/>
   <input type="tel" placeholder="Code from SMS" v-if="codeSent" v-model="state.code" class="input login"/>
 
@@ -20,8 +20,6 @@
   </div>
   <button class="btn primary" @click="submitForm">{{codeSent ? "Log In" : "Get SMS"}}</button>
   </div>
-  <RadioBtn :title="'Male'" :id="'sex-m'" :value="'male'"         :name="'sex'"/>
-  <RadioBtn :title="'Female'" :id="'sex-f'" :value="'female'" :name="'sex'"/>
 
 </template>
 
@@ -32,14 +30,10 @@ import useValidate from '@vuelidate/core';
  import { required, minLength, email, helpers, sameAs, maxLength } from '@vuelidate/validators';
  import axios from "axios";
 import qs from "qs";
-import RadioBtn from './RadioBtn.vue'
 
 export default defineComponent({
-  components: { RadioBtn },
+  components: {  },
   setup() {
-    //  const AlertMessage = inject('AlertMessage');
-    // console.log("AlertMessage -------");
-    // console.log(AlertMessage);
     const state = ref({
       phone: '',
       email: '',
@@ -243,8 +237,8 @@ export default defineComponent({
   line-height: 12px;
   padding:0 68px 10px;
   margin-bottom: 40px;
-    color: var(--color-lightGray);
-  border-bottom: 1px solid var(--color-lightGray);
+    color: var(--color-light-gray);
+  border-bottom: 1px solid var(--color-light-gray);
   &.active{
     color: var(--color-black);
     border-bottom: 1px solid var(--color-green);

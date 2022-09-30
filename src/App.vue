@@ -1,30 +1,30 @@
 <template>
 <div id="app">
-  <!-- <LoginForm/> -->
-  <RegistrationForm/>
-</div>
+  <TheLogin/>
   <!-- <AlertMessage ref="alertMessage"></AlertMessage> -->
+</div>
 </template>
 
 <script>
 import {defineComponent} from "vue";
-// import LoginForm from "./components/LoginForm.vue"
-import RegistrationForm from "./components/RegistrationForm.vue"
+import TheLogin from "./views/TheLogin.vue"
+// import RegistrationForm from "./components/RegistrationForm.vue"
 //  import AlertMessage from "./components/AlertMessage.vue"
 
 export default defineComponent({
 
   components: {
-    RegistrationForm
-    // LoginForm,
+    // RegistrationForm
+     TheLogin,
     // AlertMessage
   },
    setup() {
+    console.log(process.env.BASE_URL);
     //  const AlertMessage = ref({})
     
     //  provide('AlertMessage', AlertMessage)
 
-    //  return { AlertMessage }
+      return {  }
    }
 })
 </script>
@@ -34,8 +34,6 @@ export default defineComponent({
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 50px;
-  margin-left: 50px;
 }
 </style>
 

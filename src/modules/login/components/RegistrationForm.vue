@@ -1,89 +1,117 @@
 <template>
-    <form class="card" @submit.prevent="formSubmit">
+<div class="d-flex">
+<div class="xm">
+    <div class="container" >
+    <p class="h3">
+        Registration
+    </p>
      
-        <input class="input" placeholder="Name" type="text" id="name"
+     <div class=" d-flex f-wrap jc-sb section-wrapper pt-30 pb-30">
+        <input class="input m" placeholder="Name" type="text" id="name"
         v-model="form.name"
         >
 
-        <input class="input" placeholder="Mid" type="text" id="mid" 
+        <input class="input xs" placeholder="Mid" type="text" id="mid" 
         v-model="form.mid"
         >
 
-        <input class="input error" placeholder="Last Name" type="text" id="last"
+        <input class="input m" placeholder="Last Name" type="text" id="last"
         v-model="form.last"
          >
-
-        <Select2 class="select2"  
+     </div>
+     <p class="h5 mt-25">Address</p>
+        <div class=" d-flex f-wrap jc-sb section-wrapper pt-30 pb-30">
+           
+            <Select2 class="select2 l"  
         :options="countries" 
         :settings="{ placeholder: 'Countries' }"
         v-model="form.country"
         />
 
-        <!-- <input class="input" placeholder="City" type="text" id="city"
+        <input class="input m mt-20" placeholder="City" type="text" id="city"
         v-model="form.city"
          >
 
-        <input class="input" placeholder="State" type="text" id="state"
+        <input class="input m mt-20" placeholder="State" type="text" id="state"
         v-model="form.state"
          >
 
-        <input class="input" placeholder="Zip Code" type="text" id="zip"
+        <input class="input xs mt-20" placeholder="Zip Code" type="text" id="zip"
         onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
         v-model="form.zip"
          >
 
-        <input class="input" placeholder="Street Address" type="text" id="street"
+        <input class="input l mt-20" placeholder="Street Address" type="text" id="street"
         v-model="form.street"
          >
 
-        <input class="input" placeholder="Building" type="text" id="building"
-        onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
+
+        <div class="d-flex ">
+            <input class="input m mt-20" placeholder="Building" type="text" id="building"
         v-model="form.building"
          >
-
-        <input class="input" placeholder="Apartments" type="text" id="apartments"
+        <input class="input mt-20 xs" style="margin-left: 30px" placeholder="Apartments" type="text" id="apartments"
         onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
         v-model="form.apartments"
-         >
+         ></div>
+        </div>
+        
+        <p class="h5 mt-25">Date of Birth</p>
 
-        <input class="input" placeholder="Day" type="text" id="day"
+        <div class=" d-flex section-wrapper pt-30 pb-30">
+           <Select2 class="select2 m"  
+        :options="months" 
+        :settings="{ placeholder: 'Month' }"
+        v-model="form.month"
+        />
+
+        <input class="input xs" style="margin-left: 30px" placeholder="Day" type="text" id="day"
         onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
         v-model="form.day"
          >
 
-        <input class="input" placeholder="Year" type="text" id="year"
+        <input class="input xs" style="margin-left: 30px" placeholder="Year" type="text" id="year"
         onkeyup="this.value = this.value.replace(/[^\d]/g,'');"
         v-model="form.year"
-         > -->
+         >
+        </div>
 
-      <button :disabled="isValid.value" class="btn delete" type="submit">Submit</button>
-    </form>
+        
+
+    </div>
+</div>
+<div class="img-container ml-100">
+<img src="../../../assets/images/registration-form-img.jpg" alt="">
+</div>
+</div>
+      <button  class="btn mt-50 primary xs" type="button" @click="formSubmit">Submit</button>
 </template>
 <script>
 import { computed, defineComponent, reactive, ref } from "vue";
 import Select2 from 'vue3-select2-component';
 import useValidate from '@vuelidate/core';
 import { helpers, required, minLength, minValue, maxValue } from "@vuelidate/validators";
-import countries from '../assets/countries-list'
+import countries from '../services/countries-list'
+import months from '../services/months-list'
 
 export default defineComponent({
 components: {Select2},
 setup() {
-    console.log(countries);
+    console.log('');
     const form = reactive({
-        name: 'Jaco',
-        mid: 'matumbaman',
-        last: 'Lasso',
-        country: 'Ukraine',
-        city: 'Lviv',
-        state: 'sad',
-        zip: '123123',
-        street: 'seqwe',
-        building: '1234',
-        apartments: '123123',
-        month: 'wqqwqwe',
-        day: '12',
-        year: '1941',
+        name: '',
+        mid: '',
+        last: '',
+        country: '',
+        city: '',
+        state: '',
+        zip: '',
+        street: '',
+        building: '',
+        apartments: '',
+        month: '',
+        day: '',
+        year: '',
     })
 
     const rules = computed(()=> {
@@ -140,7 +168,49 @@ setup() {
         isValid =  await v$.value.$validate()
      }
 
-    return { form, v$, formSubmit, isValid, countries }
+    return { form, v$, formSubmit, isValid, countries, months }
 }    
 })
 </script>
+
+<style lang="scss">
+
+
+.xxs {
+        width: calc(10% - 20px);
+}
+.xs {
+        width: calc(20% - 20px);
+}
+.s {
+        width: calc(30% - 20px);
+}
+.m { 
+        width: calc(40% - 20px);
+}
+.xm { 
+        width: calc(60% - 20px);
+}
+
+.l { 
+        width: calc(100%);
+}
+
+.section-wrapper {
+    border-bottom: 1px solid var(--color-gray);
+}
+
+.img-container {
+    overflow: hidden;
+    border-top-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    
+ }
+
+ img {
+    width: 100%;
+    height: 100%;
+    object-fit:fill;	
+}
+
+</style>
