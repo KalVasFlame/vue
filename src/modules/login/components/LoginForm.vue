@@ -1,16 +1,15 @@
 <template>
   <div class="login-form-wrapper">
     <h1 class="login-form-tittle">Login or Registration</h1>
-  <div class="login-type-btns">
-  <a class="login-type-btn" @click="mode_email = false, isCodeSent = false" :class="{active: !mode_email }" >Phone</a> 
-   <span>or</span>
-   <a class="login-type-btn" @click="mode_email = true, isCodeSent = false" :class="{active: mode_email }">Email</a>
-  </div>
-  <vue-tel-input placeholder="12 123 45 67" type="tel" v-if="!mode_email"  @input="onInput"  class="input login" :value="state.phone"></vue-tel-input>
-  <input type="email" v-if="mode_email" v-model="state.email" class="input login" placeholder="Enter Email"/>
-  <input type="tel" placeholder="Code from SMS" v-if="isCodeSent" v-model="state.code" class="input login"/>
-
-  <label class="container">
+    <div class="login-type-btns">
+      <a class="login-type-btn" @click="mode_email = false, isCodeSent = false" :class="{active: !mode_email }" >Phone</a> 
+      <span>or</span>
+      <a class="login-type-btn" @click="mode_email = true, isCodeSent = false" :class="{active: mode_email }">Email</a>
+    </div>
+    <vue-tel-input  v-if="!mode_email" v-model="state.phone"  @input="onVueTelInput" :value="state.phone"></vue-tel-input>
+    <input type="text" v-if="mode_email" v-model="state.email" placeholder="Enter Email" class="input login">
+    <input type="text" v-if="isCodeSent" v-model="state.code" placeholder="Enter Code" class="input">
+  <label class="container-cbx">
     <input type="checkbox" v-model="state.agree">
     <span class="checkmark"></span>
   </label>
@@ -27,12 +26,14 @@
 <script>
 import { ref, defineComponent, computed} from "vue";
 import useValidate from '@vuelidate/core';
- import { required, minLength, email, helpers, sameAs, maxLength } from '@vuelidate/validators';
-//  import axios from "axios";
-// import qs from "qs";
+import { required, minLength, email, helpers, sameAs, maxLength } from '@vuelidate/validators';
+import axios from "axios";
+import qs from "qs";
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
+    const router = useRouter()
     const state = ref({
       phone: '',
       email: '',
@@ -43,6 +44,8 @@ export default defineComponent({
     const mode_email = ref(false)
     let isValid = ref(false)
     const isCodeSent = ref(false)
+    let data = {}
+    
    
     const rules = computed(() => { 
       return {
@@ -52,43 +55,97 @@ export default defineComponent({
                email: helpers.withMessage('Please enter valid email', email) },
             agree: { required: helpers.withMessage('Agreement is required', sameAs(true)) },
             code: { required: helpers.withMessage('Enter code from SMS you received', required), minLength: minLength(4), maxLength: maxLength(4) },
-
+            
             $validationGroups: {
               phone: ['phone', 'agree'],
               email: ['email', 'agree'],
               code: ['code']
             }
         }
-    })
-
-    const onInput = (tel, phoneObject) => {
+      })
+      
+      const v$ = useValidate(rules, state)
+      const onVueTelInput = (tel, phoneObject) => {
           if (phoneObject?.number)
             state.value.phone = phoneObject.number
     }
 
-    const v$ = useValidate(rules, state)
-  
-    const submitForm = () =>  {
-
-    v$.value.$validate().then(() => {
-        if (!isCodeSent.value) { // send code
-          if (!mode_email.value && !v$.value.$error) { // if phone is valid
-            sendCode()
-          } else if (mode_email.value && !v$.value.$validationGroups['email'].$error) { // if email is valid
-            sendCode()
+    const sendCode = () => {
+      console.log('sendCode');
+      if (!mode_email.value) {
+        data = {
+          phone: state.value.phone
+        }
+      } else {
+        data = {
+          email: state.value.email
+        }
+      }
+      axios.post(process.env.VUE_APP_API_URL + 'my/login', qs.stringify(
+        data),
+        { headers: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8', 'app-version': process.env.VUE_APP_VERSION } })
+        .then((res) => {
+          console.log(res);
+          if (res.data.status === 'success') {
+            isCodeSent.value = true
           }
-        } else { // check code
+        })
+}
+    const checkCode = () => {
+      console.log('checkCode');
+      data = {}
+      if (!mode_email.value) {
+        data = {
+          phone: state.value.phone,
+          code: state.value.code
+        }
+      } else {
+        data = {
+          email: state.value.email,
+          code: state.value.code
+        }
+      }
+      if (state.value.code && state.value.code.toString().length === 4) {
+        axios.post(process.env.VUE_APP_API_URL + 'my/check-code', qs.stringify(
+          data),
+          { headers: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8', 'app-version': process.env.VUE_APP_VERSION } })
+          .then((res) => {
+            console.log(res);
+            if (res.data.status === 'success') {
+              localStorage.setItem('user_data', JSON.stringify(res.data.user))
+              localStorage.setItem('token', res.data.user.token)
+
+              if (res.data.user.status === "creating") {
+                router.push({ name: "TheDashboard" });
+              }
+
+            } 
+            
+          })
+    }
+  }
+  
+    const submitForm = () => {
+      console.log('submitForm');
+      v$.value.$validate().then(() => {
+        if (!isCodeSent.value) {
+          if (!mode_email.value && !v$.value.$validationGroups['phone'].$error || mode_email.value && !v$.value.$validationGroups['email'].$error) {
+            sendCode() 
+          }
+        } else {
           if (!v$.value.$validationGroups['code'].$error) {
             checkCode()
           } else {
-            alertMessage.value.show('Enter the code you received in SMS', 'danger')
+            alert('Enter the code you received in SMS', 'danger')
           }
         }
+        
+        
+      
       })
 
-      console.log(v$.value);
     }
-    return {mode_email, state, v$, submitForm, onInput, isCodeSent, isValid}
+    return { mode_email, state, v$, submitForm, onVueTelInput, isCodeSent, isValid, data }
   }
 })
 </script>
@@ -144,7 +201,7 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.container {
+.container-cbx {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -154,13 +211,7 @@ export default defineComponent({
   margin-top: 45px;
 }
 
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
+
 
 .checkmark {
   position: absolute;
@@ -173,7 +224,7 @@ export default defineComponent({
 }
 
 
-.container input:checked ~ .checkmark {
+.container-cbx input:checked ~ .checkmark {
   background-color: #F5F5F5;
 }
 
@@ -183,11 +234,11 @@ export default defineComponent({
   display: none;  
 }
 
-.container input:checked ~ .checkmark:after {
+.container-cbx input:checked ~ .checkmark:after {
   display: block;
 }
 
-.container .checkmark:after {
+.container-cbx .checkmark:after {
   left: 9px;
   top: 5px;
   width: 5px;
@@ -197,8 +248,5 @@ export default defineComponent({
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-input.input {
-  margin-top: 25px;
 }
 </style>

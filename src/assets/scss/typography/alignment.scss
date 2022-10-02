@@ -1,11 +1,17 @@
 .container {
     width: calc(100% - 1.875rem) ;
     margin: 0 auto;
+    padding: 0.625rem;
 }
 
 .d-flex {
     display: flex;
 }
+.d-block {
+    display: block;
+}
+
+
 
 .d-flex-center {
     display: flex;
@@ -29,4 +35,8 @@
 
 .ai-c {
     align-items: center;
+}
+
+.center {
+    margin: 0 auto;
 }
