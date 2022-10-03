@@ -19,14 +19,12 @@ export default {
   position: absolute;
      top: 0; 
      left: 0; 
-     background-color:rgba(36, 5, 5, 0.407);;
+     background-color:rgba(7, 5, 5, 0.407);
 }
 
-.modal-content-container {  
+.modal-content-container { 
   padding: 20px;
     border-radius: 40px;
-      width: 50%;
-      height: 50%;
       background-color: var(--color-white);
 }
 

@@ -6,7 +6,7 @@
       <span>or</span>
       <a class="login-type-btn" @click="mode_email = true, isCodeSent = false" :class="{active: mode_email }">Email</a>
     </div>
-    <vue-tel-input  v-if="!mode_email" v-model="state.phone"  @input="onVueTelInput" :value="state.phone"></vue-tel-input>
+    <vue-tel-input  aria-autocomplete="false" v-if="!mode_email" v-model="state.phone"  @input="onVueTelInput" :value="state.phone"></vue-tel-input>
     <input type="text" v-if="mode_email" v-model="state.email" placeholder="Enter Email" class="input login">
     <input type="text" v-if="isCodeSent" v-model="state.code" placeholder="Enter Code" class="input">
   <label class="container-cbx">
@@ -115,8 +115,10 @@ export default defineComponent({
               localStorage.setItem('user_data', JSON.stringify(res.data.user))
               localStorage.setItem('token', res.data.user.token)
 
-              if (res.data.user.status === "creating") {
+              if (res.data.user.status === "confirmed") {
                 router.push({ name: "TheDashboard" });
+              } else {
+                router.push({ name: "AccessDenied" });
               }
 
             } 

@@ -1,5 +1,5 @@
 <template>
-<div class="container d-flex jc-sb ai-c">
+<div class="d-flex jc-sb ai-c">
     <div class="logo-container mt-35">
         <img :src="LogoSvg" alt="Logo" />
     </div>
@@ -18,7 +18,6 @@ import AndroidIos from '../assets/images/svg/android-ios.svg'
 import MyAccSvg from '../assets/images/svg/my-acc-cross.svg'
 export default defineComponent({
     setup() {
-        
         return { LogoSvg, AndroidIos, MyAccSvg }
     }
 })

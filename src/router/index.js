@@ -1,16 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router"
-import TheDashboard from "../views/TheDashboard.vue"
-import AccessDenied from "../views/AccessDenied.vue"
-import TheLogin from "../views/TheLogin.vue"
+import TheDashboard from "@/views/TheDashboard.vue"
+import AccessDenied from "@/views/AccessDenied.vue"
+import TheLogin from "@/views/TheLogin.vue"
+import WorkCabinet from "@/views/WorkCabinet.vue"
+
 const routes = [
-  // { path: "/:catchAll(.*)", redirect: '/foo'},
+  { path: "/:catchAll(.*)", redirect: '/login'},
   {
     path: "/login",
     name: "TheLogin",
     component: TheLogin,
   },
   {
-    path: "/dashboardddddddd",
+    path: "/dashboard",
     name: "TheDashboard",
     component: TheDashboard,
   },
@@ -18,6 +20,11 @@ const routes = [
     path: "/accessDenied",
     name: "AccessDenied",
     component: AccessDenied,
+  },
+  {
+    path: "/workCabinet",
+    name: "WorkCabinet",
+    component: WorkCabinet,
   },
 ]
 

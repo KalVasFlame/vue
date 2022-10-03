@@ -22,3 +22,39 @@
     }
 }
 
+.vue-tel-input {
+  border: none;
+  width: 24.188rem;
+  position: relative;
+  display: block;
+  height: 3.5rem !important;
+  background-color: var(--color-light-gray);
+  border-radius: 0.75rem;
+  color: var(--color-gray-text);
+  padding: 0.9375rem;
+ }
+ 
+.vti__dropdown-list {
+  width: 100%;
+  position: absolute;
+  background-color: var(--color-light-gray);
+
+    color: var(--color-gray-text);
+    border-bottom-left-radius: 0.75rem !important;
+    border-bottom-right-radius: 0.75rem !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    line-height: 26px !important;
+
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+  }
+.vti__dropdown ~ .vti__input {
+  position: absolute;
+  color: var(--color-gray-text) !important;
+  background-color:var(--color-light-gray) !important;
+  width: 50%;
+  top: 35%;
+  left: 30%;
+}
