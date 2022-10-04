@@ -11,24 +11,27 @@
 </div>
 <base-modal v-if="isPatient">
   <p>yo yo</p>
-  <button class="btn primary"> Accept</button>
-  <button class="btn error"> Cancel</button>
+  <button class="btn primary" @click="onAcceptParientBtnClick"> Accept</button>
+  <button class="btn error" @click="onCancelParientBtnClick"> Cancel</button>
 </base-modal>
 </template>
 <script>
 import { defineComponent, ref } from 'vue';
 import BaseModal from '@/components/base/BaseModal.vue';
+import { useRouter } from 'vue-router'
+
 export default defineComponent({
   components: [BaseModal],
     setup() {
+      const router = useRouter()
       let isPatient = ref(true)
 
       const onAcceptParientBtnClick = () => {
-      
+        router.push({ name: "HRAForm" });
       }
 
       const onCancelParientBtnClick = () => {
-      
+        router.push({ name: "TheDashboard" });
       }
 
       return { isPatient, onAcceptParientBtnClick, onCancelParientBtnClick };

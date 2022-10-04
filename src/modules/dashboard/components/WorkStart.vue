@@ -13,11 +13,20 @@
 </base-modal>
 </template>
 <script>
-  import { defineComponent, ref } from "vue";
+  import { defineComponent, onBeforeMount, ref } from "vue";
   import { useRouter } from 'vue-router'
 
 export default defineComponent({
   setup() {
+
+    onBeforeMount(()=> {
+      const userData = JSON.parse(localStorage.getItem('user_data'))
+      console.log(userData);
+      if (userData.confirmed !== "5") {
+        router.push({name: 'AccessDenied'})
+      }
+    })
+
     const router = useRouter()
     let isModalOpen = ref(false)
 

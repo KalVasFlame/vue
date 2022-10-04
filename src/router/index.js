@@ -26,11 +26,16 @@ const routes = [
     name: "WorkCabinet",
     component: WorkCabinet,
   },
+  {
+    path: "/hraform",
+    name: "HRAForm",
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
+
 
 export default router
